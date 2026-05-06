@@ -26,7 +26,9 @@ PREMIUM_CSS = f"""
     }}
 
     /* ── Hide Defaults ───────────────────────────────────────────────── */
-    #MainMenu, footer {visibility: hidden;}
+    #MainMenu, footer {{visibility: hidden;}}
+    header {{background: transparent !important; visibility: visible !important;}}
+    header .stApp--hasNotSidebar {{display: none;}}
     .stDeployButton {{display: none;}}
 
     /* ── Sidebar ─────────────────────────────────────────────────────── */
