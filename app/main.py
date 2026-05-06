@@ -124,30 +124,17 @@ with st.sidebar:
 
     render_sidebar_divider()
 
-    # ── Provider ──────────────────────────────────────────────────────
-    st.markdown(f"<p style='color:{THEME['text_muted']};font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;'>🤖 LLM Provider</p>", unsafe_allow_html=True)
-    provider_name = st.selectbox(
-        "Provider", options=list(LLM_PROVIDERS.keys()),
-        index=list(LLM_PROVIDERS.keys()).index(st.session_state.provider_name),
-        label_visibility="collapsed",
-    )
+    # ── Provider & API Key (Hidden) ───────────────────────────────────
+    provider_name = "Groq (Free)"
     st.session_state.provider_name = provider_name
     pcfg = LLM_PROVIDERS[provider_name]
 
+    st.markdown(f"<p style='color:{THEME['text_muted']};font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;'>🤖 Model</p>", unsafe_allow_html=True)
     model_name = st.selectbox("Model", options=pcfg["models"], index=0, label_visibility="collapsed")
 
-    render_sidebar_divider()
-
-    # ── API Key ───────────────────────────────────────────────────────
-    st.markdown(f"<p style='color:{THEME['text_muted']};font-size:0.72rem;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;'>🔑 API Key</p>", unsafe_allow_html=True)
-    env_k = _env_key(provider_name)
-    api_key = st.text_input(
-        "Key", value=env_k or st.session_state.api_key,
-        type="password", placeholder="Paste your API key…",
-        label_visibility="collapsed",
-    )
+    # Use environment variable for API key (hidden from UI)
+    api_key = _env_key(provider_name)
     st.session_state.api_key = api_key
-    st.markdown(f"<p style='color:{THEME['text_muted']};font-size:0.7rem;margin-top:4px;'>ℹ️ {pcfg['help']}</p>", unsafe_allow_html=True)
 
     render_sidebar_divider()
 
@@ -230,7 +217,7 @@ with status_cols[0]:
     if has_key:
         st.markdown(render_status_badge("● API Connected", "success"), unsafe_allow_html=True)
     else:
-        st.markdown(render_status_badge("○ No API Key", "warning"), unsafe_allow_html=True)
+        st.markdown(render_status_badge("○ API Key Missing (.env)", "warning"), unsafe_allow_html=True)
 with status_cols[1]:
     if has_data:
         n = len(st.session_state.datasets)
@@ -381,7 +368,7 @@ else:
         # Chat Input
         if prompt := st.chat_input("Ask a question about your data…", disabled=st.session_state.processing):
             if not has_key:
-                st.error(f"⚠️ Enter your API key in the sidebar. {pcfg['help']}")
+                st.error("⚠️ Server API key missing. Please check the backend configuration (.env file).")
                 st.stop()
 
             st.session_state.messages.append({"role": "user", "content": prompt})

@@ -3,6 +3,7 @@ App configuration, theme constants, and design tokens.
 """
 
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -89,10 +90,21 @@ DEFAULT_PROVIDER = "Groq (Free)"
 TEMPERATURE = 0.1
 MAX_RETRIES = 3
 
-# ── Env keys (auto-load from .env) ───────────────────────────────────────────
-GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
-HF_API_KEY = os.getenv("HF_API_KEY", "")
-GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY", "")
+# ── Env keys (auto-load from .env or st.secrets) ─────────────────────────────
+def get_secret(key_name):
+    # Try environment variable first (local .env or standard env vars)
+    val = os.getenv(key_name, "")
+    if val:
+        return val
+    # Fallback to Streamlit secrets (Community Cloud)
+    try:
+        return st.secrets.get(key_name, "")
+    except Exception:
+        return ""
+
+GROQ_API_KEY = get_secret("GROQ_API_KEY")
+HF_API_KEY = get_secret("HF_API_KEY")
+GOOGLE_API_KEY = get_secret("GOOGLE_API_KEY")
 
 # ── Sample Queries ────────────────────────────────────────────────────────────
 SAMPLE_QUERIES = [
