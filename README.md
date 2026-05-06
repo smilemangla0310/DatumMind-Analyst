@@ -2,10 +2,20 @@
 
 **Premium AI-Powered Data Analysis Dashboard** — Upload datasets, ask questions in natural language, and get instant analysis with visualizations and business insights.
 
+[![Live Demo](https://img.shields.io/badge/🚀_Live_Demo-datummind.streamlit.app-6366F1?style=for-the-badge)](https://datummind.streamlit.app)
+
 ![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)
 ![Streamlit](https://img.shields.io/badge/Streamlit-1.40+-red?logo=streamlit)
 ![Groq](https://img.shields.io/badge/Groq-LLaMA_3.3-orange?logo=meta)
 ![License](https://img.shields.io/badge/License-MIT-green)
+
+---
+
+## 🌐 Live Demo
+
+**👉 [https://datummind.streamlit.app](https://datummind.streamlit.app)**
+
+> Get a free Groq API key at [console.groq.com/keys](https://console.groq.com/keys) (14,400 free requests/day) to start analyzing immediately.
 
 ---
 
@@ -164,16 +174,20 @@ The dashboard opens at `http://localhost:8501`.
 
 ---
 
-## 🌐 Deployment (Streamlit Community Cloud)
+## 🌐 Deployment
 
-1. **Push to GitHub**
-2. **Go to** [share.streamlit.io](https://share.streamlit.io)
-3. **Deploy**: repo → branch `main` → file `app/main.py`
-4. **Add Secrets**:
+This app is live on Streamlit Community Cloud:
+
+**👉 [https://datummind.streamlit.app](https://datummind.streamlit.app)**
+
+### Deploy your own fork:
+1. Fork this repo
+2. Go to [share.streamlit.io](https://share.streamlit.io)
+3. Deploy → repo `DatumMind-Analyst` → branch `main` → file `app/main.py`
+4. Add Secrets in app settings:
    ```toml
    GROQ_API_KEY = "your_key"
    ```
-5. Live at `https://your-app.streamlit.app` 🎉
 
 ---
 
@@ -209,5 +223,7 @@ MIT License
 ---
 
 <p align="center">
-  Built with ❤️ using Streamlit & AI
+  Built with ❤️ using Streamlit & AI &nbsp;·&nbsp;
+  <a href="https://datummind.streamlit.app">🚀 Live Demo</a> &nbsp;·&nbsp;
+  <a href="https://github.com/smilemangla0310/DatumMind-Analyst">⭐ Star on GitHub</a>
 </p>
